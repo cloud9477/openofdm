@@ -104,11 +104,12 @@
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg18; 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg19; */
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg20; // read openofdm rx core internal state
-	/*
+	
+	// cloudwifiac
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg21; 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg22; 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg23; 
-	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg24; 
+	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg24;/* 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg25; 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg26; 
 	wire [(C_S00_AXI_DATA_WIDTH-1):0] slv_reg27; 
@@ -274,7 +275,13 @@
 
 		// for side channel
 		.csi(csi),
-		.csi_valid(csi_valid)
+		.csi_valid(csi_valid),
+		
+		// cloudwifiac
+		.acdebugreg21(slv_reg21),
+		.acdebugreg22(slv_reg22),
+		.acdebugreg23(slv_reg23),
+		.acdebugreg24(slv_reg24)
 	);
 
 	openofdm_rx_s_axi # ( 
@@ -323,11 +330,12 @@
         .SLV_REG17(slv_reg17),
         .SLV_REG18(slv_reg18),
         .SLV_REG19(slv_reg19),*/
-        .SLV_REG20(slv_reg20),/*
+        .SLV_REG20(slv_reg20),
+        // cloudwifiac
         .SLV_REG21(slv_reg21),
         .SLV_REG22(slv_reg22),
         .SLV_REG23(slv_reg23),
-		.SLV_REG24(slv_reg24),
+		.SLV_REG24(slv_reg24),/*
         .SLV_REG25(slv_reg25),
         .SLV_REG26(slv_reg26),
         .SLV_REG27(slv_reg27),

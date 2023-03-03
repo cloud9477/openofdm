@@ -128,7 +128,13 @@ module dot11 (
 
     // for side channel
     output wire [31:0] csi,
-    output wire csi_valid
+    output wire csi_valid,
+    
+    // cloudwifiac
+    output reg [31:0] acdebugreg21,
+    output reg [31:0] acdebugreg22,
+    output reg [31:0] acdebugreg23,
+    output reg [31:0] acdebugreg24
 );
 
 `include "common_params.v"
@@ -1129,6 +1135,39 @@ always @(posedge clock) begin
                 state <= S_WAIT_POWER_TRIGGER;
             end
         endcase
+    end
+end
+
+// cloudwifiac
+reg [31:0] acdebugreg22counter;
+
+always @(posedge clock) begin
+    if (reset) begin
+        acdebugreg21 <= 0;
+        acdebugreg22 <= 0;
+        acdebugreg23 <= 0;
+        acdebugreg24 <= 0;
+        acdebugreg22counter <= 0;
+    end else begin
+        acdebugreg21 <= 32'hfefefe01;
+        
+        if(acdebugreg22counter >= 32'd199999) begin
+            acdebugreg22counter <= 32'd0;
+            acdebugreg22 <= acdebugreg22 + 1'b1;
+        end else begin
+            acdebugreg22counter <= acdebugreg22counter + 1'b1;
+            acdebugreg22 <= acdebugreg22;
+        end
+        
+        if(fcs_out_strobe) begin
+            if(fcs_ok) begin
+                acdebugreg23 <= acdebugreg23 + 1'b1;
+            end else begin
+                acdebugreg23 <= acdebugreg23;
+            end
+        end
+        
+        acdebugreg24 <= 32'h12345678;
     end
 end
 
